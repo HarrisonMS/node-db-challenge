@@ -1,5 +1,4 @@
 
-
     //creating Projects table
 //     A `project` is what needs to be done. We want to store the following data about a `project`:
 
@@ -20,6 +19,9 @@
 // - [ ] a description of what needs to be done. This column is required.
 // - [ ] a notes column to add additional information.
 // - [ ] a boolean that indicates if the task has been completed. This column cannot be NULL, the default value should be `false`.
+
+
+//MOVED NOTES TO CLEAN IT UP SEARCHING FOR BUGS
 exports.up = function(knex) {
     return knex.schema
     .createTable("projects", tbl => {
