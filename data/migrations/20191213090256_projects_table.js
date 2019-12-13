@@ -1,6 +1,5 @@
 
-exports.up = function(knex) {
-    return knex.schema
+
     //creating Projects table
 //     A `project` is what needs to be done. We want to store the following data about a `project`:
 
@@ -8,29 +7,12 @@ exports.up = function(knex) {
 // - [ ] a name. This column is required.
 // - [ ] a description.
 // - [ ] a boolean that indicates if the project has been completed. This column cannot be NULL, the default value should be `false`.
-
-    .createTable("projects", tbl => {
-        tbl.increments();
-
-        tbl.string("name", 255).unique().notNullable();
-
-        tbl.string("description", 255);
-
-        tbl.boolean("completed").defaultTo(false).notNullable();
-    })
     //creating resource table
     //A `resource` is anything needed to complete a project, some examples are: a person, a tool, a meeting room or a software license. We want to store the following data about a `resource`:
 // - [ ] a unique Id.
 // - [ ] a name. This column is required.
 // - [ ] a description.
 // The database should not allow resources with duplicate names.
-    .createTable("resources", tbl => {
-        tbl.increments();
-
-        tbl.string("name", 255).unique().notNullable();
-        
-        tbl.string("description", 255)
-    })
     //creating the tasks table needs to connect through foriegn key to projects table
 //     An `task` one of the steps needed to complete the project. We want to store the following data about an `task`.
 
@@ -38,6 +20,26 @@ exports.up = function(knex) {
 // - [ ] a description of what needs to be done. This column is required.
 // - [ ] a notes column to add additional information.
 // - [ ] a boolean that indicates if the task has been completed. This column cannot be NULL, the default value should be `false`.
+exports.up = function(knex) {
+    return knex.schema
+    .createTable("projects", tbl => {
+        tbl.increments();
+
+        tbl.string("name", 255).unique().notNullable();
+
+        tbl.string("description", 255);
+
+        tbl.boolean("completed").notNullable();
+    })
+
+    .createTable("resources", tbl => {
+        tbl.increments();
+
+        tbl.string("name", 255).unique().notNullable();
+        
+        tbl.string("description", 255)
+    })
+
     .createTable("tasks", tbl => {
         tbl.increments();
 
@@ -45,10 +47,10 @@ exports.up = function(knex) {
 
         tbl.string("notes",255).notNullable();
 
-        tbl.boolean("completed").defaultTo(false).notNullable()
+        tbl.boolean("completed").notNullable()
 
         //connect task to projects
-        tbl.integer("projet_id")
+        tbl.integer("project_id")
             .unsigned()
             .notNullable()
             .references("id")
@@ -59,20 +61,18 @@ exports.up = function(knex) {
         tbl.increments();
 
         //project first maybe
-        tbl
-            .integer("project_id")
+        tbl.integer("project_id")
             .unsigned()
             .notNullable()
             .references("id")
-            .intable("projects")
+            .inTable("projects")
 
         //resources
-        tbl
-        .integer("resource_id")
+        tbl.integer("resource_id")
         .unsigned()
         .notNullable()
         .references("id")
-        .intable("resources")
+        .inTable("resources")
     })
 };
 
@@ -84,3 +84,6 @@ exports.down = function(knex) {
     .dropTableIfExists("resources")
     .dropTableIfExists("projects")
 };
+
+
+
