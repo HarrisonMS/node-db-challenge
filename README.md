@@ -44,8 +44,8 @@ Relational databases is the software that manages the storage, CRUD operations e
 Primary keys identify each thing in the database uniquely. So that on top of the foreign keys we still know what the primary key is in that databse because it orders them consecutively.
 - [ ] What is the name given to a table column that references the primary key on another table.
 Foriegn Key.
-- [ ] What do we need in order to have a _many to many_ relationship between two tables.
-A product/thing can have many products/things and that same produce will appear in many orders/another place in the tables.
+- [ ] What do we need in order to have a _many to many_ relationship between two tables
+a table with relationships to two or more table through foriegn keys
 ## Minimum Viable Product
 
 Take the steps necessary to complete the project from scratch. Start by initializing your project with a `package.json` and go from there.
