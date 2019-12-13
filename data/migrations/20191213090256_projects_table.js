@@ -34,14 +34,6 @@ exports.up = function(knex) {
         tbl.boolean("completed").notNullable();
     })
 
-    .createTable("resources", tbl => {
-        tbl.increments();
-
-        tbl.string("name", 255).unique().notNullable();
-        
-        tbl.string("description", 255)
-    })
-
     .createTable("tasks", tbl => {
         tbl.increments();
 
@@ -57,6 +49,13 @@ exports.up = function(knex) {
             .notNullable()
             .references("id")
             .inTable("projects")
+    })
+    .createTable("resources", tbl => {
+        tbl.increments();
+
+        tbl.string("name", 255).unique().notNullable();
+        
+        tbl.string("description", 255)
     })
     //project resources table contains connection to proj and resources through foreign ke
     .createTable("project_resources", tbl => {
